@@ -1,4 +1,4 @@
-# Tee House — E-Commerce MCP Server
+#  T-shirt E-Commerce MCP Server
 
 A read-only MCP server that exposes a t-shirt catalog over the Model Context Protocol. Browse, search, and filter products by category, price, size, or color — from any MCP client.
 
