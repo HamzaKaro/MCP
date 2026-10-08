@@ -3,9 +3,9 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import { z } from "zod";
-import { store } from "./portfolio-data.js";
+import { store } from "./products.js";
 
-function createServer() {
+export function createServer() {
   const server = new McpServer({
     name: "ecommerce-tshirts",
     version: "1.0.0",
@@ -166,6 +166,22 @@ async function startHttpServer() {
   const PORT = parseInt(process.env.PORT || "3000", 10);
 
   const app = createMcpExpressApp({ host: "0.0.0.0" });
+
+  const API_KEY = process.env.MCP_API_KEY;
+  if (API_KEY) {
+    app.use("/mcp", (req, res, next) => {
+      const provided = req.headers["x-api-key"];
+      if (provided !== API_KEY) {
+        res.status(401).json({
+          jsonrpc: "2.0",
+          error: { code: -32001, message: "Unauthorized: invalid or missing x-api-key header" },
+          id: null,
+        });
+        return;
+      }
+      next();
+    });
+  }
 
   app.post("/mcp", async (req, res) => {
     const server = createServer();

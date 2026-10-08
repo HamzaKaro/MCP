@@ -1,16 +1,17 @@
 {
-  "name": "portfolio-mcp-server",
+  "name": "ecommerce-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server that exposes portfolio data",
+  "description": "A read-only e-commerce MCP server for browsing and searching a t-shirt catalog",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start:http": "node server.js --http"
+    "start:http": "node server.js --http",
+    "test": "node --test server.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["mcp", "model-context-protocol", "ecommerce", "ai-tools", "claude", "nodejs"],
+  "author": "Hamza Karoui",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
     "express": "^5.2.1",
