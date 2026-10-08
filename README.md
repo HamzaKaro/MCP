@@ -1,4 +1,4 @@
-# Tee House — E-Commerce MCP Server
+#  T-shirt E-Commerce MCP Server
 
 A simple MCP server that exposes a t-shirt catalog with prices, sizes, colors, and filters. Built with Node.js and the official MCP SDK.
 
