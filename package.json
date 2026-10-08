@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server that exposes portfolio data",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:http": "node server.js --http"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "express": "^5.2.1",
+    "zod": "^4.6.5"
+  }
+}
