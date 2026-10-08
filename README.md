@@ -88,7 +88,7 @@ Works on any Node.js host (Railway, Render, Fly.io, a VPS). Set the start comman
 
 ## Design Notes
 
-This section explains the decisions behind the server — useful if you're building your own MCP server or evaluating this one.
+This section explains the decisions behind the server useful if you're building your own MCP server or evaluating this one.
 
 ### Why these tools?
 
@@ -98,13 +98,13 @@ The `recommend` prompt is a template, not a tool. It assembles the in-stock cata
 
 ### Why read-only?
 
-An MCP server runs inside the trust boundary of the AI model — the model decides when to call tools and with what arguments. Read-only tools are safe by default: the worst case is the model reads data it was going to see anyway. Write operations (placing orders, updating inventory, processing payments) carry real consequences and should not be triggered by an LLM without explicit human confirmation.
+An MCP server runs inside the trust boundary of the AI model, the model decides when to call tools and with what arguments. Read-only tools are safe by default: the worst case is the model reads data it was going to see anyway. Write operations (placing orders, updating inventory, processing payments) carry real consequences and should not be triggered by an LLM without explicit human confirmation.
 
 ### Adding write actions safely
 
 If you extend this server with write tools (e.g. `add_to_cart`, `place_order`, `update_stock`), follow these principles:
 
-1. **Require human confirmation.** MCP supports tool annotations — mark write tools with `destructiveHint: true` so clients can prompt the user before executing. Never let the model autonomously place an order.
+1. **Require human confirmation.** MCP supports tool annotations mark write tools with `destructiveHint: true` so clients can prompt the user before executing. Never let the model autonomously place an order.
 
 2. **Authenticate the user, not just the client.** The `x-api-key` header authenticates the MCP client (which AI agent is calling). Write actions also need to know *which user* is acting. Pass a user token (JWT, session cookie) as a tool argument or a second header, and validate it server-side.
 
@@ -112,7 +112,7 @@ If you extend this server with write tools (e.g. `add_to_cart`, `place_order`, `
 
 4. **Make writes idempotent.** LLMs retry. Network errors retry. If `place_order` is called twice with the same intent, it should not create two orders. Use idempotency keys.
 
-5. **Log everything.** Every tool call in HTTP mode gets a request — log the tool name, arguments, user identity, and timestamp. This gives you an audit trail for any action the AI took.
+5. **Log everything.** Every tool call in HTTP mode gets a request log the tool name, arguments, user identity, and timestamp. This gives you an audit trail for any action the AI took.
 
 ### Architecture
 
